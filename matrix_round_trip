@@ -1,0 +1,53 @@
+def prn_matrix(matrix):
+    for row in matrix:
+        print(*row)
+    
+
+n, m = [int(a) for a in input().split()]
+matrix = [[0]*m for _ in range(n)]
+
+k = 1
+start = 0
+
+while start < n//2 + n%2 and start < m//2 + m%2:
+    i,j = start, start
+    horiz, vert = 1,  0
+    
+    w,h = m-2*start, n-2*start
+
+    count = w
+    if h > 1:
+        count += w
+    if h > 2:
+        count += h-2
+        if w > 1:
+            count += h-2
+    
+    for _ in range(count):
+        matrix[i][j] = k
+        #prn_matrix(matrix)
+        #print('---------------')
+        
+        k += 1
+        
+        j += horiz
+        i += vert
+        if j == m-start:
+            horiz,vert = 0, 1
+            j -= 1
+            i += vert
+        elif i == n-start:
+            horiz,vert = -1, 0
+            i -= 1
+            j += horiz
+        elif j == start-1:
+            horiz, vert = 0, -1
+            j = start
+            i += vert
+        elif i == start-1:
+            horiz, vert = 1,0
+            i = start
+            j += horiz
+    start += 1
+        
+prn_matrix(matrix)
